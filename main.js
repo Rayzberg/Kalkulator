@@ -1,27 +1,39 @@
 "use strict";
 let body =document.getElementsByTagName('body')[0];
-let button=document.createElement('div');
+let layout = createLayout ();
 
-button.style.float ='left';
-button.style.width ='400px';
-button.style.height ='100px';
-button.style.backgroundColor ='green';
-body.appendChild(button);
+for (let i = 0; i < 9; ++i) {
+    let button = createButton();
+    layout.slots[i].appendChild(button);
+}
+body.appendChild(layout.main)
+function createButton() {
+    let button = document.createElement('div');
+    button.style.width ='100%';
+    button.style.height ='100%';
+    button.style.backgroundColor ='green';
 
-let button2=document.createElement('div');
-button2.style.margin ='50px';
-button2.style.float ='left';
-button2.style.width ='100px';
-button2.style.height ='50px';
-button2.style.backgroundColor ='blue';
-body.appendChild(button2);
+    return button;
+}
 
-let button23=document.createElement('div');
-//button23.style.float ='left';
-button23.style.marginTop ='110px'; // Почему эта хрень применяется к верхним кнопкам а не только к последней?? и
-                                    // и куда девается последняя?? хотел просто опустить её вниз под теми двумя
-//отменил привязку к левой стороне, и хотел вытащить её из од первогоб лока отступом сверху, а опустились все
-button23.style.width ='100px';
-button23.style.height ='50px';
-button23.style.backgroundColor ='black';
-body.appendChild(button23);
+function createLayout() {
+    let layout = {
+        main: document.createElement("div"),
+        slots: []
+
+    };
+    layout.main.style.height = "500px";
+    layout.main.style.width = "500px";
+    for(let i = 0; i < 9; ++i){
+        let slot = document.createElement("div");
+        slot.style.width = "33%";
+        slot.style.height = "33%";
+        slot.style.float = "left";
+        slot.style.padding = "10px";
+        slot.style.boxSizing = "border-box";
+        layout.main.appendChild(slot);
+        layout.slots.push(slot);
+    }
+    return layout;
+
+}
